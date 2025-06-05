@@ -1,0 +1,11 @@
+tensorflow     
+torch           
+torchvision
+nvidia-cublas-cu12
+nvidia-cudnn-cu12
+nvidia-cuda-runtime-cu12
+numpy
+matplotlib
+pygame
+pandas          
+joblib
