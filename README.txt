@@ -32,7 +32,7 @@ This project implements the classic Snake game in Python, featuring an agent tha
     python main.py
 
 2️⃣  The agent will play episodes of the game and learn from experience.
-    Every 50 episodes, rendering can be toggled on or off.
+    You can enable rendering after custom number of episodes in the main function to visualize learning progress.
 
 ──────────────────────────────
 ⚙️  Key Features
@@ -42,8 +42,5 @@ This project implements the classic Snake game in Python, featuring an agent tha
 ✅  Neural network (QNetwork): 2 hidden layers (256 neurons each)
 ✅  Snake game environment in Pygame with collision detection and food
 
-──────────────────────────────
-📌  Notes
-──────────────────────────────
-- By default, the agent is trained in headless mode (no graphics) for faster training.
+
 
