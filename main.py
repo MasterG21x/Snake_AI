@@ -37,5 +37,5 @@ for ep in range(EPISODES):
     print(f"Episode {ep:4d} | reward: {total_reward:6.1f} | ε = {agent.epsilon:.3f}")
     
     #Here u can change render handling
-    if ep % 300 == 299:
+    if ep % 50 == 49:
         render_now = not render_now
