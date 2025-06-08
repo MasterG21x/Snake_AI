@@ -51,7 +51,7 @@ class Board:
             if not self.snake.alive:
                 self.reset()
 
-            self.clock.tick(15) 
+            self.clock.tick(10) 
 
     def _check_events(self):
         """Handles user input and system events (keyboard and window closing)."""
@@ -65,15 +65,15 @@ class Board:
                 self._keydown(event)
 
     def _keydown(self, event: pygame.event.Event):
-        """Handles key press events to change snake direction or exit."""
         cur = self.snake.direction
-        if event.key == pygame.K_RIGHT:
-            self.snake.direction = CLOCK_WISE[(CLOCK_WISE.index(cur) + 1) % 4]
-        elif event.key == pygame.K_LEFT:
-            self.snake.direction = CLOCK_WISE[(CLOCK_WISE.index(cur) - 1) % 4]
-        elif event.key == pygame.K_UP and cur in (Direction.LEFT, Direction.RIGHT):
+
+        if event.key == pygame.K_LEFT and cur != Direction.RIGHT:
+            self.snake.direction = Direction.LEFT
+        elif event.key == pygame.K_RIGHT and cur != Direction.LEFT:
+            self.snake.direction = Direction.RIGHT
+        elif event.key == pygame.K_UP and cur != Direction.DOWN:
             self.snake.direction = Direction.UP
-        elif event.key == pygame.K_DOWN and cur in (Direction.LEFT, Direction.RIGHT):
+        elif event.key == pygame.K_DOWN and cur != Direction.UP:
             self.snake.direction = Direction.DOWN
         elif event.key == pygame.K_q:
             pygame.quit()
@@ -162,14 +162,15 @@ class Board:
         self.snake.move_once()
         self._post_move_updates()
 
-        reward = -0.1  # kara za krok
+        reward = -0.1  
         done = not self.snake.alive
 
         if self.snake.score > score_before:
             reward = 10.0
         elif done:
             reward = -10.0
-
+        if self.head_is_surrounded():
+            reward -= 0.2
         return reward, done, self.snake.score
 
     
@@ -219,3 +220,16 @@ class Board:
             ],
             dtype=np.float32,
         )
+
+    def head_is_surrounded(self) -> bool:
+        
+        head_x = self.snake.head.rect.x
+        head_y = self.snake.head.rect.y
+
+        directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+
+        for dx, dy in directions:
+            if not self._point_collision(head_x + dx, head_y + dy):
+                return False
+        return True
+    
