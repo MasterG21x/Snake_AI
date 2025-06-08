@@ -2,7 +2,7 @@
 ========================================
 
 This project implements the classic Snake game in Python, featuring an agent that learns using a Deep Q-Network (DQN). The game is built using Pygame for rendering, and TensorFlow powers the DQN.
-
+Note: This project is still under development. Although the DQN agent can learn and play Snake, it may sometimes getting stuck or making illogical moves. Future updates are planned to improve stability and performance.
 ──────────────────────────────
 🗂️  Project Structure
 ──────────────────────────────
